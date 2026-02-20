@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface-50 text-surface-900 antialiased font-sans;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-950;
+  }
+
+  * {
+    @apply focus-visible:outline-primary-500;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-xl
+           transition-all duration-200 ease-out
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           active:scale-[0.98];
+  }
+
+  .btn-primary {
+    @apply bg-surface-900 text-white hover:bg-surface-800 focus-visible:ring-surface-900
+           shadow-soft hover:shadow-soft-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-surface-100 text-surface-700 hover:bg-surface-200 focus-visible:ring-surface-400;
+  }
+
+  .btn-outline {
+    @apply border-2 border-surface-200 bg-white text-surface-700
+           hover:border-surface-900 hover:text-surface-900
+           focus-visible:ring-surface-900;
+  }
+
+  .btn-accent {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-500
+           shadow-soft hover:shadow-glow;
+  }
+
+  .input {
+    @apply block w-full rounded-xl border-2 border-surface-200 bg-white
+           px-4 py-2.5 text-surface-900 placeholder-surface-400
+           transition-all duration-200
+           focus:border-surface-900 focus:outline-none focus:ring-0
+           hover:border-surface-300;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-surface-600 mb-1.5 tracking-wide uppercase;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-surface-100;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl text-surface-900;
+  }
+
+  .section-subheading {
+    @apply text-surface-500 text-lg mt-2 max-w-2xl;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase;
+  }
+
+  .divider {
+    @apply border-t border-surface-200;
+  }
+}
