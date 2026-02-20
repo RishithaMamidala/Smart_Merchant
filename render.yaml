@@ -1,0 +1,58 @@
+# Render Blueprint for Smart Merchant Backend
+# This configuration deploys the backend to Render's free tier
+
+services:
+  # Main Backend API
+  - type: web
+    name: smartmerchant-backend
+    runtime: node
+    region: oregon  # Choose closest to your users: oregon, frankfurt, singapore, ohio
+    plan: free  # Free tier: 750 hours/month, spins down after 15 min inactivity
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Database
+      - key: MONGODB_URI
+        sync: false  # Set manually in Render dashboard
+      # JWT Configuration
+      - key: JWT_SECRET
+        sync: false  # Set manually (use generated secret)
+      - key: JWT_REFRESH_SECRET
+        sync: false  # Set manually (use generated secret)
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      # Stripe
+      - key: STRIPE_SECRET_KEY
+        sync: false  # Set manually
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false  # Set manually after webhook setup
+      # SendGrid
+      - key: SENDGRID_API_KEY
+        sync: false  # Set manually
+      - key: SENDGRID_FROM_EMAIL
+        sync: false  # Set manually
+      - key: SENDGRID_FROM_NAME
+        value: Smart Merchant
+      # Cloudinary
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false  # Set manually
+      - key: CLOUDINARY_API_KEY
+        sync: false  # Set manually
+      - key: CLOUDINARY_API_SECRET
+        sync: false  # Set manually
+      # Cron Jobs
+      - key: CRON_SECRET
+        sync: false  # Set manually (use generated secret)
+      # CORS
+      - key: FRONTEND_URL
+        sync: false  # Set manually after Vercel deployment
+    # Auto-deploy settings
+    autoDeploy: true
+    branch: main  # Deploy from main branch
