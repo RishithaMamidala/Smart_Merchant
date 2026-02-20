@@ -5,14 +5,10 @@
   "framework": "vite",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "regions": ["iad1"],
-  "routes": [
+  "rewrites": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
