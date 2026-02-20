@@ -7,12 +7,9 @@ import { env } from '../config/env.js';
  */
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin only in development (mobile apps, Postman, etc.)
+    // Allow requests with no origin (health checks, webhooks, monitoring tools)
     if (!origin) {
-      if (env.NODE_ENV === 'development') {
-        return callback(null, true);
-      }
-      return callback(new Error('Origin header required'));
+      return callback(null, true);
     }
 
     // In development, allow all origins
