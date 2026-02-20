@@ -49,8 +49,18 @@ const corsOptions = {
 };
 
 /**
- * Configured CORS middleware
+ * Conditional CORS middleware that skips CORS for health checks and webhooks
+ * These endpoints need to be accessible without Origin headers (for monitoring tools)
  */
-export const corsMiddleware = cors(corsOptions);
+export const corsMiddleware = (req, res, next) => {
+  // Skip CORS for health checks, webhooks, and cron jobs (no Origin header required)
+  const path = req.path;
+  if (path === '/api/health' || path.startsWith('/api/webhooks/') || path.startsWith('/api/cron/')) {
+    return next();
+  }
+
+  // Apply CORS for all other routes
+  return cors(corsOptions)(req, res, next);
+};
 
 export default corsMiddleware;
